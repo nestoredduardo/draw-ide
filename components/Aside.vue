@@ -1,13 +1,13 @@
 <template>
-  <div class="wrapper">
-    <div class="col">
+  <div class="wrapper w-1/5">
+    <div class="w-full flex flex-col">
       <div
         class="drag-drawflow"
         draggable="true"
         ondragstart="drag(event)"
         data-node="facebook"
       >
-        <i class="fab fa-facebook"></i><span> Facebook</span>
+        <span> Number</span>
       </div>
       <div
         class="drag-drawflow"
@@ -15,7 +15,7 @@
         ondragstart="drag(event)"
         data-node="slack"
       >
-        <i class="fab fa-slack"></i><span> Slack recive message</span>
+        <span> Assign </span>
       </div>
       <div
         class="drag-drawflow"
@@ -23,7 +23,7 @@
         ondragstart="drag(event)"
         data-node="github"
       >
-        <i class="fab fa-github"></i><span> Github Star</span>
+        <span> Print</span>
       </div>
       <div
         class="drag-drawflow"
@@ -31,7 +31,7 @@
         ondragstart="drag(event)"
         data-node="telegram"
       >
-        <i class="fab fa-telegram"></i><span> Telegram send message</span>
+        <span> Add</span>
       </div>
       <div
         class="drag-drawflow"
@@ -39,7 +39,7 @@
         ondragstart="drag(event)"
         data-node="aws"
       >
-        <i class="fab fa-aws"></i><span> AWS</span>
+        <span> Substrack</span>
       </div>
       <div
         class="drag-drawflow"
@@ -47,7 +47,7 @@
         ondragstart="drag(event)"
         data-node="log"
       >
-        <i class="fas fa-file-signature"></i><span> File Log</span>
+        <span> Multiply </span>
       </div>
       <div
         class="drag-drawflow"
@@ -55,7 +55,7 @@
         ondragstart="drag(event)"
         data-node="google"
       >
-        <i class="fab fa-google-drive"></i><span> Google Drive save</span>
+        <span> Divide</span>
       </div>
       <div
         class="drag-drawflow"
@@ -63,7 +63,7 @@
         ondragstart="drag(event)"
         data-node="email"
       >
-        <i class="fas fa-at"></i><span> Email send</span>
+        <span> If - Else</span>
       </div>
       <div
         class="drag-drawflow"
@@ -71,32 +71,33 @@
         ondragstart="drag(event)"
         data-node="template"
       >
-        <i class="fas fa-code"></i><span> Template</span>
+        <span> For Bucle</span>
       </div>
-      <div
-        class="drag-drawflow"
-        draggable="true"
-        ondragstart="drag(event)"
-        data-node="multiple"
-      >
-        <i class="fas fa-code-branch"></i><span> Multiple inputs/outputs</span>
-      </div>
-      <div
-        class="drag-drawflow"
-        draggable="true"
-        ondragstart="drag(event)"
-        data-node="personalized"
-      >
-        <i class="fas fa-fill"></i><span> Personalized</span>
-      </div>
-      <div
-        class="drag-drawflow"
-        draggable="true"
-        ondragstart="drag(event)"
-        data-node="dbclick"
-      >
-        <i class="fas fa-mouse"></i><span> DBClick!</span>
+      <div class="px-6 text-center py-4 text-xl">
+        Made with 💚 by
+        <a
+          href="https://twitter.com/nestoredduardo"
+          target="_blank"
+          class="text-blue-500"
+          >@nestoredduardo</a
+        >
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.wrapper {
+  height: 100%;
+  display: flex;
+}
+
+.drag-drawflow {
+  font-size: 1.2rem;
+  line-height: 55px;
+  border-bottom: 1px solid rgba(229, 231, 235, 1);
+  cursor: move;
+  user-select: none;
+  text-align: center;
+}
+</style>
