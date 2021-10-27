@@ -6,7 +6,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="facebook"
+          data-node="number"
         >
           <span> Number</span>
         </div>
@@ -14,7 +14,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="slack"
+          data-node="assign"
         >
           <span> Assign </span>
         </div>
@@ -99,6 +99,9 @@ import Vue from "vue";
 import NodeClick from "./NodeClick.vue";
 import Drawflow from "drawflow";
 import styleDrawflow from "drawflow/dist/drawflow.min.css";
+
+import Number from "./Nodes/Number.vue";
+import Assign from "./Nodes/Assign.vue";
 
 export default {
   name: "App",
@@ -296,38 +299,36 @@ export default {
             (this.editor.precanvas.clientHeight * this.editor.zoom));
 
       switch (name) {
-        case "facebook":
-          var facebook = `
-        <div>
-          <div class="title-box"><i class="fab fa-facebook"></i> Facebook Message</div>
-        </div>
-        `;
+        case "number":
+          const props = {};
+          const options = {};
+          this.editor.registerNode("Number", Number, props, options);
+          const data = {};
+          //editor.addNode(name, inputs, outputs, posx, posy, class, data, html);
           this.editor.addNode(
-            "facebook",
+            "Number",
             0,
             1,
             pos_x,
             pos_y,
-            "facebook",
-            {},
-            facebook
+            "Class",
+            data,
+            "Number",
+            "vue"
           );
           break;
-        case "slack":
-          var slackchat = `
-          <div>
-            <div class="title-box"><i class="fab fa-slack"></i> Slack chat message</div>
-          </div>
-          `;
+        case "assign":
+          this.editor.registerNode("Assign", Assign, props, options);
           this.editor.addNode(
-            "slack",
+            "assign",
             1,
             0,
             pos_x,
             pos_y,
-            "slack",
+            "assign",
             {},
-            slackchat
+            "Assign",
+            "vue"
           );
           break;
         case "github":
@@ -580,7 +581,7 @@ export default {
   --dfNodeHoverBoxShadowS: 2px;
   --dfNodeHoverBoxShadowColor: #4ea9ff;
 
-  --dfNodeSelectedBackgroundColor: rgba(234, 98, 192, 1);
+  --dfNodeSelectedBackgroundColor: rgba(98, 165, 234, 1);
   --dfNodeSelectedTextColor: #ffffff;
   --dfNodeSelectedBorderSize: 2px;
   --dfNodeSelectedBorderColor: rgba(21, 22, 112, 1);

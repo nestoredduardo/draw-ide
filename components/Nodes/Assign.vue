@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1 class="mb-2">Number</h1>
+    <h1 class="mb-2">Assign</h1>
+    <label>Give a name to the variable</label>
     <input
-      type="number"
+      type="text"
       class="
         shadow
         appearance-none
