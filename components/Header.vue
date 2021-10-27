@@ -9,7 +9,7 @@
         rounded
         py-2
         px-4
-        ml-auto
+        mx-auto
         w-4/12
         text-gray-700
         leading-tight
@@ -17,6 +17,8 @@
       "
       placeholder="Give your project an amazing name"
     />
-    <img src="/github.svg" width="70" height="70" class="ml-auto" />
+    <a href="https://github.com/nestoredduardo/draw-ide" target="_blank"
+      ><img src="/github.svg" width="70" height="70"
+    /></a>
   </header>
 </template>

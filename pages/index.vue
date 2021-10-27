@@ -1,7 +1,10 @@
 <template>
   <main>
     <Header />
-    <Aside />
+    <section class="flex h-max">
+      <Aside />
+      <Whiteboard />
+    </section>
   </main>
 </template>
 
