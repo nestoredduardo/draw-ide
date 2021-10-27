@@ -4,7 +4,8 @@
       <div
         class="drag-drawflow"
         draggable="true"
-        ondragstart="drag(event)"
+        v-on:ondragstart="drag(event)"
+        @drop="drop(event)"
         data-node="facebook"
       >
         <span> Number</span>
@@ -12,7 +13,7 @@
       <div
         class="drag-drawflow"
         draggable="true"
-        ondragstart="drag(event)"
+        v-on:ondragstart="drag(event)"
         data-node="slack"
       >
         <span> Assign </span>
@@ -60,7 +61,7 @@
       <div
         class="drag-drawflow"
         draggable="true"
-        ondragstart="drag(event)"
+        @ondragstart="drag(event)"
         data-node="email"
       >
         <span> If - Else</span>
@@ -85,6 +86,49 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    exportData() {
+      alert(JSON.stringify(this.editor.export()));
+    },
+    drag: function (ev) {
+      console.log("Drag");
+      if (ev.type === "touchstart") {
+        mobile_item_selec = ev.target
+          .closest(".drag-drawflow")
+          .getAttribute("data-node");
+      } else {
+        ev.dataTransfer.setData("node", ev.target.getAttribute("data-node"));
+      }
+    },
+    drop(ev) {
+      console.log("Drop done");
+      if (ev.type === "touchend") {
+        var parentdrawflow = document
+          .elementFromPoint(
+            mobile_last_move.touches[0].clientX,
+            mobile_last_move.touches[0].clientY
+          )
+          .closest("#drawflow");
+        if (parentdrawflow != null) {
+          addNodeToDrawFlow(
+            mobile_item_selec,
+            mobile_last_move.touches[0].clientX,
+            mobile_last_move.touches[0].clientY
+          );
+        }
+        mobile_item_selec = "";
+      } else {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("node");
+        addNodeToDrawFlow(data, ev.clientX, ev.clientY);
+      }
+    },
+  },
+};
+</script>
 
 <style>
 .wrapper {
