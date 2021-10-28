@@ -22,7 +22,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="github"
+          data-node="print"
         >
           <span> Print</span>
         </div>
@@ -30,7 +30,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="telegram"
+          data-node="add"
         >
           <span> Add</span>
         </div>
@@ -38,7 +38,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="aws"
+          data-node="substrack"
         >
           <span> Substrack</span>
         </div>
@@ -46,7 +46,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="log"
+          data-node="multiply"
         >
           <span> Multiply </span>
         </div>
@@ -54,7 +54,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="google"
+          data-node="divide"
         >
           <span> Divide</span>
         </div>
@@ -62,7 +62,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="email"
+          data-node="ifelse"
         >
           <span> If - Else</span>
         </div>
@@ -75,7 +75,7 @@
           <span> For Bucle</span>
         </div>
         <div class="px-6 text-center py-4 text-xl">
-          Made with 💚 by
+          Made with ☕ by
           <a
             href="https://twitter.com/nestoredduardo"
             target="_blank"
@@ -102,6 +102,12 @@ import styleDrawflow from "drawflow/dist/drawflow.min.css";
 
 import Number from "./Nodes/Number.vue";
 import Assign from "./Nodes/Assign.vue";
+import Print from "./Nodes/Print.vue";
+import Add from "./Nodes/Add";
+import Substrack from "./Nodes/Substrack.vue";
+import Multiply from "./Nodes/Multiply.vue";
+import Divide from "./Nodes/Divide.vue";
+import IfElse from "./Nodes/IfElse.vue";
 
 export default {
   name: "App",
@@ -331,109 +337,89 @@ export default {
             "vue"
           );
           break;
-        case "github":
-          var githubtemplate = `
-          <div>
-            <div class="title-box"><i class="fab fa-github "></i> Github Stars</div>
-            <div class="box">
-              <p>Enter repository url</p>
-            <input type="text" df-name>
-            </div>
-          </div>
-          `;
+        case "print":
+          this.editor.registerNode("Print", Print, props, options);
           this.editor.addNode(
-            "github",
-            0,
-            1,
-            pos_x,
-            pos_y,
-            "github",
-            { name: "" },
-            githubtemplate
-          );
-          break;
-        case "telegram":
-          var telegrambot = `
-          <div>
-            <div class="title-box"><i class="fab fa-telegram-plane"></i> Telegram bot</div>
-            <div class="box">
-              <p>Send to telegram</p>
-              <p>select channel</p>
-              <select df-channel>
-                <option value="channel_1">Channel 1</option>
-                <option value="channel_2">Channel 2</option>
-                <option value="channel_3">Channel 3</option>
-                <option value="channel_4">Channel 4</option>
-              </select>
-            </div>
-          </div>
-          `;
-          this.editor.addNode(
-            "telegram",
-            1,
-            0,
-            pos_x,
-            pos_y,
-            "telegram",
-            { channel: "channel_3" },
-            telegrambot
-          );
-          break;
-        case "aws":
-          var aws = `
-          <div>
-            <div class="title-box"><i class="fab fa-aws"></i> Aws Save </div>
-            <div class="box">
-              <p>Save in aws</p>
-              <input type="text" df-db-dbname placeholder="DB name"><br><br>
-              <input type="text" df-db-key placeholder="DB key">
-              <p>Output Log</p>
-            </div>
-          </div>
-          `;
-          this.editor.addNode(
-            "aws",
+            "print",
             1,
             1,
             pos_x,
             pos_y,
-            "aws",
-            { db: { dbname: "", key: "" } },
-            aws
-          );
-          break;
-        case "log":
-          var log = `
-            <div>
-              <div class="title-box"><i class="fas fa-file-signature"></i> Save log file </div>
-            </div>
-            `;
-          this.editor.addNode("log", 1, 0, pos_x, pos_y, "log", {}, log);
-          break;
-        case "google":
-          var google = `
-            <div>
-              <div class="title-box"><i class="fab fa-google-drive"></i> Google Drive save </div>
-            </div>
-            `;
-          this.editor.addNode(
-            "google",
-            1,
-            0,
-            pos_x,
-            pos_y,
-            "google",
+            "print",
             {},
-            google
+            "Print",
+            "vue"
           );
           break;
-        case "email":
-          var email = `
-            <div>
-              <div class="title-box"><i class="fas fa-at"></i> Send Email </div>
-            </div>
-            `;
-          this.editor.addNode("email", 1, 0, pos_x, pos_y, "email", {}, email);
+        case "add":
+          this.editor.registerNode("Add", Add, props, options);
+          this.editor.addNode(
+            "add",
+            2,
+            1,
+            pos_x,
+            pos_y,
+            "add",
+            {},
+            "Add",
+            "vue"
+          );
+          break;
+        case "substrack":
+          this.editor.registerNode("Substrack", Substrack, props, options);
+          this.editor.addNode(
+            "substrack",
+            2,
+            1,
+            pos_x,
+            pos_y,
+            "substrack",
+            {},
+            "Substrack",
+            "vue"
+          );
+          break;
+        case "multiply":
+          this.editor.registerNode("Multiply", Multiply, props, options);
+          this.editor.addNode(
+            "multiply",
+            2,
+            1,
+            pos_x,
+            pos_y,
+            "multiply",
+            {},
+            "Multiply",
+            "vue"
+          );
+          break;
+        case "divide":
+          this.editor.registerNode("Divide", Divide, props, options);
+          this.editor.addNode(
+            "divide",
+            2,
+            1,
+            pos_x,
+            pos_y,
+            "divide",
+            {},
+            "Divide",
+            "vue"
+          );
+          break;
+        case "ifelse":
+          this.editor.registerNode("IfElse", IfElse, props, options);
+          this.editor.addNode(
+            "ifelse",
+            2,
+            1,
+            pos_x,
+            pos_y,
+            "ifelse",
+            {},
+            "IfElse",
+            "vue"
+          );
           break;
 
         case "template":

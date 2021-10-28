@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-2">Number</h1>
+    <h1 class="mb-2 font-bold">Number</h1>
     <input
       type="number"
       class="
@@ -13,6 +13,7 @@
         px-3
         text-gray-700
         leading-tight
+        bg-blue-100
         focus:outline-none focus:shadow-outline
       "
     />
