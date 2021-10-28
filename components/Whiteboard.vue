@@ -338,7 +338,7 @@ export default {
           this.editor.addNode(
             "assign",
             1,
-            0,
+            1,
             pos_x,
             pos_y,
             "assign",
