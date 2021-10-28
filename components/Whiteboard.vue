@@ -70,9 +70,17 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
-          data-node="template"
+          data-node="for"
         >
           <span> For Bucle</span>
+        </div>
+        <div
+          class="drag-drawflow"
+          draggable="true"
+          @dragstart="drag($event)"
+          data-node="end"
+        >
+          <span> End Block </span>
         </div>
         <div class="px-6 text-center py-4 text-xl">
           Made with ☕ by
@@ -108,6 +116,8 @@ import Substrack from "./Nodes/Substrack.vue";
 import Multiply from "./Nodes/Multiply.vue";
 import Divide from "./Nodes/Divide.vue";
 import IfElse from "./Nodes/IfElse.vue";
+import For from "./Nodes/For.vue";
+import End from "./Nodes/End.vue";
 
 export default {
   name: "App",
@@ -412,7 +422,7 @@ export default {
           this.editor.addNode(
             "ifelse",
             2,
-            1,
+            2,
             pos_x,
             pos_y,
             "ifelse",
@@ -422,89 +432,32 @@ export default {
           );
           break;
 
-        case "template":
-          var template = `
-            <div>
-              <div class="title-box"><i class="fas fa-code"></i> Template</div>
-              <div class="box">
-                Ger Vars
-                <textarea df-template></textarea>
-                Output template with vars
-              </div>
-            </div>
-            `;
+        case "for":
+          this.editor.registerNode("For", For, props, options);
           this.editor.addNode(
-            "template",
+            "for",
             1,
             1,
             pos_x,
             pos_y,
-            "template",
-            { template: "Write your template" },
-            template
-          );
-          break;
-        case "multiple":
-          var multiple = `
-            <div>
-              <div class="box">
-                Multiple!
-              </div>
-            </div>
-            `;
-          this.editor.addNode(
-            "multiple",
-            3,
-            4,
-            pos_x,
-            pos_y,
-            "multiple",
+            "for",
             {},
-            multiple
+            "For",
+            "vue"
           );
           break;
-        case "personalized":
-          var personalized = `
-            <div>
-              Personalized
-            </div>
-            `;
+        case "end":
+          this.editor.registerNode("End", End, props, options);
           this.editor.addNode(
-            "personalized",
+            "end",
             1,
             1,
             pos_x,
             pos_y,
-            "personalized",
+            "end",
             {},
-            personalized
-          );
-          break;
-        case "dbclick":
-          var dbclick = `
-            <div>
-            <div class="title-box"><i class="fas fa-mouse"></i> Db Click</div>
-              <div class="box dbclickbox" ondblclick="showpopup(event)">
-                Db Click here
-                <div class="modal" style="display:none">
-                  <div class="modal-content">
-                    <span class="close" onclick="closemodal(event)">&times;</span>
-                    Change your variable {name} !
-                    <input type="text" df-name>
-                  </div>
-                </div>
-              </div>
-            </div>
-            `;
-          this.editor.addNode(
-            "dbclick",
-            1,
-            1,
-            pos_x,
-            pos_y,
-            "dbclick",
-            { name: "" },
-            dbclick
+            "End",
+            "vue"
           );
           break;
 
@@ -526,6 +479,20 @@ export default {
 }
 #drawflow {
   width: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+}
+
+.drag-drawflow {
+  font-size: 1.2rem;
+  line-height: 50px;
+  border-bottom: 1px solid rgba(229, 231, 235, 1);
+  cursor: move;
+  user-select: none;
+  text-align: center;
 }
 
 :root {
