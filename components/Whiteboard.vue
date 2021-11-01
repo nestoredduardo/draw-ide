@@ -6,6 +6,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="number"
         >
           <span> Number</span>
@@ -14,6 +15,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="assign"
         >
           <span> Assign </span>
@@ -22,6 +24,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="print"
         >
           <span> Print</span>
@@ -30,6 +33,8 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchstart="drag($event)"
+          @touchend="drop($event)"
           data-node="add"
         >
           <span> Add</span>
@@ -38,6 +43,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="substrack"
         >
           <span> Substrack</span>
@@ -46,6 +52,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="multiply"
         >
           <span> Multiply </span>
@@ -54,6 +61,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="divide"
         >
           <span> Divide</span>
@@ -62,6 +70,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="ifelse"
         >
           <span> If - Else</span>
@@ -70,6 +79,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="for"
         >
           <span> For Bucle</span>
@@ -78,6 +88,7 @@
           class="drag-drawflow"
           draggable="true"
           @dragstart="drag($event)"
+          @touchend="drop($event)"
           data-node="end"
         >
           <span> End Block </span>
@@ -202,14 +213,8 @@ export default {
       console.log("Reroute removed " + id);
     });
 
-    var mobile_item_selec = "";
-    var mobile_last_move = null;
     function positionMobile(ev) {
-      mobile_last_move = ev;
-    }
-
-    function allowDrop(ev) {
-      ev.preventDefault();
+      const mobile_last_move = ev;
     }
 
     var transform = "";
@@ -259,14 +264,28 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      mobile_item_selec: "",
+      mobile_last_move: null,
+    };
+  },
   methods: {
     exportData() {
       alert(JSON.stringify(this.editor.export()));
     },
+    positionMobile(ev) {
+      const mobile_last_move = ev;
+    },
+
+    allowDrop(ev) {
+      ev.preventDefault();
+    },
+
     drag(ev) {
       console.log(ev);
       if (ev.type === "touchstart") {
-        mobile_item_selec = ev.target
+        const mobile_item_selec = ev.target
           .closest(".drag-drawflow")
           .getAttribute("data-node");
       } else {
@@ -274,18 +293,26 @@ export default {
       }
     },
     drop(ev) {
+      console.log(ev);
+      const mobile_last_move = ev;
+      let mobile_item_selec;
+      if (ev.target.closest(".drag-drawflow") !== null) {
+        mobile_item_selec = ev.target
+          .closest(".drag-drawflow")
+          .getAttribute("data-node");
+      }
+
       if (ev.type === "touchend") {
+        const touches =
+          mobile_last_move.touches[0] || mobile_last_move.changedTouches[0];
         var parentdrawflow = document
-          .elementFromPoint(
-            mobile_last_move.touches[0].clientX,
-            mobile_last_move.touches[0].clientY
-          )
+          .elementFromPoint(touches.clientX, touches.clientY)
           .closest("#drawflow");
         if (parentdrawflow != null) {
-          addNodeToDrawFlow(
+          this.addNodeToDrawFlow(
             mobile_item_selec,
-            mobile_last_move.touches[0].clientX,
-            mobile_last_move.touches[0].clientY
+            touches.clientX,
+            touches.clientY
           );
         }
         mobile_item_selec = "";
