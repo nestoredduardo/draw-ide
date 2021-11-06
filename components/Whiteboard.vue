@@ -1,6 +1,28 @@
 <template>
-  <section class="flex" style="height: calc(100vh - 104px)">
-    <div class="wrapper w-1/5">
+  <section class="flex whiteboard">
+    <button
+      class="
+        absolute
+        z-10
+        bg-blue-200
+        font-bold
+        text-5xl
+        rounded-full
+        w-14
+        h-14
+        flex
+        justify-center
+        align-center
+        bottom-20
+        right-10
+        sm:hidden
+      "
+      @click="showAside"
+    >
+      +
+    </button>
+
+    <div v-if="displayAside" class="w-1/3 sm:w-1/5 right-1/3 sm:block">
       <div class="w-full flex flex-col">
         <div
           class="drag-drawflow"
@@ -93,7 +115,7 @@
         >
           <span> End Block </span>
         </div>
-        <div class="px-6 text-center py-4 text-xl">
+        <div class="hidden px-6 text-center py-4 text-xl sm:block">
           Made with ☕ by
           <a
             href="https://twitter.com/nestoredduardo"
@@ -106,6 +128,7 @@
     </div>
     <div
       id="drawflow"
+      class="h-full"
       @dragover.prevent
       @dragenter.prevent
       @drop="drop($event)"
@@ -135,6 +158,7 @@ export default {
   data() {
     return {
       editor: null,
+      displayAside: true,
     };
   },
   mounted() {
@@ -268,11 +292,15 @@ export default {
     return {
       mobile_item_selec: "",
       mobile_last_move: null,
+      displayAside: true,
     };
   },
   methods: {
     exportData() {
       alert(JSON.stringify(this.editor.export()));
+    },
+    showAside() {
+      this.displayAside = !this.displayAside;
     },
     positionMobile(ev) {
       const mobile_last_move = ev;
@@ -506,6 +534,16 @@ export default {
 }
 #drawflow {
   width: 100%;
+}
+
+.whiteboard {
+  height: calc(100vh - 150px);
+}
+
+@media screen and (min-width: 640px) {
+  .whiteboard {
+    height: calc(100vh - 104px);
+  }
 }
 
 .wrapper {

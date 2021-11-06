@@ -2,6 +2,7 @@
   <main>
     <Header />
     <Whiteboard />
+    <Footer />
   </main>
 </template>
 

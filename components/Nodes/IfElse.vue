@@ -24,8 +24,8 @@
         <option>==</option>
         <option>></option>
         <option>>=</option>
-        <option><</option>
-        <option><=</option>
+        <option>'&lt;'</option>
+        <option>'&lt;'=</option>
       </select>
       <input
         type="text"
